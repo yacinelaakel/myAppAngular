@@ -1,9 +1,6 @@
-:host(.contextual) {
-  button {
-    color: cornflowerblue;
-    background-color: #2a2f3e;
-    margin: -5px 0 0 8px;
-  }
+.menu-hamburger {
+  display: flex;
+  padding: 0;
 }
 
 ::ng-deep .mat-menu-content {
@@ -14,14 +11,6 @@
     padding: 10px;
     box-shadow: none !important;
   }
-}
-
-:host {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 0 6px;
-  padding: 0;
 }
 
 ul {
@@ -59,21 +48,3 @@ span:hover {
   background: #2a2f3e !important;
 }
 
-@media (max-width: 768px) {
-  :host(.contextual) {
-    display: block !important;
-  }
-
-  :host {
-    display: none;
-  }
-}
-@media (min-width: 768px) {
-  :host(.contextual) {
-    display: none;
-  }
-
-  :host {
-    display: block;
-  }
-}

@@ -1,7 +1,7 @@
 {
     "name": "Angular Universal PWA Starter by Maciej Treder",
     "short_name": "Angular PWA",
-    "lang": "en-US",
+    "lang": "en-FR",
     "start_url": "/",
     "display": "standalone",
     "theme_color": "#ffffff",

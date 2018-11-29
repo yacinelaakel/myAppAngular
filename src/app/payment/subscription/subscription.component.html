@@ -1,0 +1,39 @@
+<div class="row main_container">
+	<div class="col-xs-12 text-center">
+		<h1>Mon abonnement</h1>
+
+		<p>Abonné : <span *ngIf="sub_info">Oui</span><span *ngIf="!sub_info">Non</span></p>
+
+		<button *ngIf="sub_info" mat-raised-button disabled>Je suis déjà abonné</button>
+		
+		<div class="row text-center" *ngIf="!sub_info">
+			<div class="col-xs-6">
+				<button (click)="onSubscribe(3000)" mat-raised-button color="primary">
+					Offre Classique 30 € / mois
+				</button>				
+			</div>
+			<div class="col-xs-6">
+				<button (click)="onSubscribe(4500)" mat-raised-button color="primary">
+					Offre Pro 45 € / mois
+				</button>				
+			</div>
+		</div>
+
+		<div class="row text-center" *ngIf="sub_info">
+			<div class="col-xs-6">
+				<p>Offre : {{sub_info.plan_name}}</p>				
+				<p>Date de fin : {{sub_info.current_period_end}}</p>		
+				<p>Offres restante : {{sub_info.offers}}</p>	
+				<p>Renouvellement automatique : </p>	
+				<div *ngIf="!sub_info.cancel_at_period_end">
+					<span>Activer</span> | <button (click)="OnUnsubscribe()">Désactiver</button>
+				</div>
+				<div *ngIf="sub_info.cancel_at_period_end">
+					<button (click)="OnResubscribe()">Activer</button> | <span>Désactiver</span>
+				</div>
+			</div>
+			<div class="col-xs-6">
+			</div>
+		</div>		
+	</div>
+</div>

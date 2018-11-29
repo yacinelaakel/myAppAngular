@@ -1,0 +1,55 @@
+<div class="row">
+	<div class="col-xs-12">
+		<h1>Mon profil</h1>
+		<div class="main-container">
+			<button (click)="toggleEditMode()">Modifier informations</button>
+			<div *ngIf="!editMode">
+				LECTURE
+				<div class="row" style="text-align: right">
+					Dernière mise à jour : {{user.updatedAt | date: 'dd/MM/yyyy'}}
+				</div>
+				<div class="row">
+					<div class="col-xs-4">Prénom : <br> {{user.firstname}}</div>
+					<div class="col-xs-4">Nom : <br>{{user.lastname}}</div>
+					<div class="col-xs-4">Email : <br> {{user.email}}</div>
+				</div>
+				<div *ngIf="error" class="alert alert-danger">{{ error }}</div>
+				<div *ngIf="success" class="alert alert-success">{{ success }}</div>
+			</div>
+			<div *ngIf="editMode">
+				EDITION
+				<div class="row">
+					<form [formGroup]="editUserForm" (ngSubmit)="onSubmitUser()">
+						<div class="col-xs-4">
+							<mat-form-field appearance="outline">
+							    <mat-label>Prénom</mat-label>
+							    <input matInput formControlName="firstname">
+							</mat-form-field>	
+						</div>
+						<div class="col-xs-4">
+							<mat-form-field appearance="outline">
+							    <mat-label>Nom</mat-label>
+							    <input matInput formControlName="lastname">
+							</mat-form-field>	
+						</div>
+						<div class="col-xs-4">
+							<mat-form-field appearance="outline">
+							    <mat-label>Email</mat-label>
+							    <input matInput formControlName="email">
+							</mat-form-field>	<br><br><br>
+						</div>
+						<div class="row text-center">
+							<button 
+								mat-raised-button color="primary" 
+								type="submit" 
+								[disabled]="editUserForm.invalid"
+							>
+								Mettre à jour
+							</button>
+						</div>
+					</form>
+				</div>
+			</div>			
+		</div>
+	</div>
+</div>

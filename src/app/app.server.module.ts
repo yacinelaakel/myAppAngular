@@ -1,15 +1,15 @@
-import {NgModule} from '@angular/core';
-import {ServerModule, ServerTransferStateModule} from '@angular/platform-server';
-import {ModuleMapLoaderModule} from '@nguniversal/module-map-ngfactory-loader';
-
-import {AppModule} from './app.module';
-import {AppComponent} from './app.component';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { NgModule } from '@angular/core';
+import { ServerModule, ServerTransferStateModule } from '@angular/platform-server';
+import { BrowserModule }                    from '@angular/platform-browser';
+import { NoopAnimationsModule }             from '@angular/platform-browser/animations';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import * as fs from 'fs';
-import { BrowserModule } from '@angular/platform-browser';
+import { ModuleMapLoaderModule }            from '@nguniversal/module-map-ngfactory-loader';
+
+import { AppModule }               from './app.module';
+import { AppComponent }            from './app.component';
+import * as fs                     from 'file-system';
 import { ServiceWorkerModuleMock } from './services/service-worker.mock.module';
-import { Observable, Observer } from 'rxjs';
+import { Observable, Observer }    from 'rxjs';
 
 export function universalLoader(): TranslateLoader {
     return {
@@ -29,13 +29,13 @@ export function universalLoader(): TranslateLoader {
         }),
         AppModule,
         ServerModule,
+        ServerTransferStateModule,
         NoopAnimationsModule,
         ModuleMapLoaderModule,
-        ServerTransferStateModule,
+        ServiceWorkerModuleMock,
         TranslateModule.forRoot({
             loader: {provide: TranslateLoader, useFactory: universalLoader}
         }),
-        ServiceWorkerModuleMock
     ],
     bootstrap: [AppComponent],
 })

@@ -1,84 +1,83 @@
-import { environment } from '../environments/environment';
-import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
-import { SwUpdate } from '@angular/service-worker';
-import { isPlatformBrowser , DOCUMENT} from '@angular/common';
-import { SnackBar, SnackBarNotification } from './services/snack-bar.service';
-import { WindowRef } from './window-ref.service';
+import { Component, Inject, OnInit } from '@angular/core';
+import { isPlatformBrowser } 		 from '@angular/common';
+import { Meta, Title }				 from '@angular/platform-browser';
+import { SwUpdate }					 from '@angular/service-worker';
+import { 
+		ActivatedRouteSnapshot,
+        Event,
+        NavigationStart,
+        NavigationEnd,
+		NavigationCancel,
+        NavigationError,
+        Router 
+} from '@angular/router';
+
 import { TranslateService } from '@ngx-translate/core';
-import { Meta, Title } from '@angular/platform-browser';
-import { ActivatedRouteSnapshot, NavigationEnd, Router } from '@angular/router';
-import { filter } from 'rxjs/operators';
+import { filter } 			from 'rxjs/operators';
+
+import { SnackBar, SnackBarNotification } from './services/snack-bar.service';
+import { WindowRef } 					  from './window-ref.service';
+
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['app.component.scss']
+    selector: 'app-root',
+    templateUrl: './app.component.html',
+  	styleUrls: ['app.component.scss']
 })
 export class AppComponent implements OnInit {
 
-  private title: string = this.titleService.getTitle();
-  private metaDescription: string = this.metaService.getTag('name=description').content;
+    title: string = this.titleService.getTitle();
+  	metaDescription: string = this.metaService.getTag('name=description').content;
 
-  constructor(@Inject(DOCUMENT) private document: any, 
-    @Inject(PLATFORM_ID) private platformId: any,
-    private snackBarService: SnackBar,
-    private windowRef: WindowRef,
-    private swUpdate: SwUpdate,
-    private translate: TranslateService,
-    private titleService: Title,
-    private metaService: Meta,
-    private router: Router
-  ) {
-    this.translate.setDefaultLang(this.translate.getBrowserLang());
-  }
+  	constructor(
+    	private snackBarService: SnackBar,
+    	private windowRef: WindowRef,
+    	private swUpdate: SwUpdate,
+    	private translate: TranslateService,
+    	private titleService: Title,
+    	private metaService: Meta,
+    	private router: Router
+  	) {
+    	this.translate.setDefaultLang(this.translate.getBrowserLang());
+  	}
 
-  public ngOnInit(): void {
-    this.router.events.pipe(filter((event) => event instanceof NavigationEnd)).subscribe((event) => {
-      const snapshot: ActivatedRouteSnapshot = this.router.routerState.snapshot.root.firstChild;
+  	ngOnInit(): void {	
+  		this.router.events.subscribe((event: Event) => this.navigationInterceptor(event));
+    	// Check for update
+  		this.swUpdate.available.subscribe((evt) => {
+    		this.snackBarService.displayNotification({
+      			message: 'Une nouvelle version de l\'app est disponible',
+      			action: 'Lancer',
+      			force: true,
+      			callback: () => {
+        			this.windowRef.nativeWindow.location.reload(true);
+      			}
+    		} as SnackBarNotification);
+  		});
 
-      const title: string = snapshot.data['title'];
-      this.titleService.setTitle(this.title + ' | ' + title);
+      	this.swUpdate.checkForUpdate().then(() => {
+        	// noop
+      	}).catch((err) => {
+        	console.error('error when checking for update', err);
+      	});
+	}
 
-      const description: string = snapshot.data['description'];
-      this.metaService.updateTag({ name: 'description', content: this.metaDescription + ' ' + description}, 'name=description');
-    });
+	private navigationInterceptor(event: Event) {
+		if(event instanceof NavigationStart) {
+		}
+		if(event instanceof NavigationEnd) {
+	  		// Subscription listening to data 'title' from route
+      		const snapshot: ActivatedRouteSnapshot = this.router.routerState.snapshot.root.firstChild;
 
-    if (!isPlatformBrowser(this.platformId)) {
-      return;
-    }
+      		const title: string = snapshot.data['title'] ? snapshot.data['title'] + ' - ' : '';
+      		this.titleService.setTitle(title + this.title);
 
-    if (this.swUpdate.isEnabled) {
-      // this.swUpdate.activated.filter(() => !localStorage.getItem('cached')).subscribe(() => {
-      //     localStorage.setItem('cached', 'displayed');
-      //     this.snackBarService.displayNotification({
-      //         message: 'Content is cached', action: 'Ok'
-      //     } as SnackBarNotification);
-      // });
-
-      this.swUpdate.available.subscribe((evt) => {
-        this.snackBarService.displayNotification({
-          message: 'New version of app is available!',
-          action: 'Launch',
-          force: true,
-          callback: () => {
-            this.windowRef.nativeWindow.location.reload(true);
-          }
-        } as SnackBarNotification);
-      });
-
-      this.swUpdate.checkForUpdate().then(() => {
-        // noop
-      }).catch((err) => {
-        console.error('error when checking for update', err);
-      });
-    }
-  
-    if (!isPlatformBrowser(this.platformId)) {
-        let bases = this.document.getElementsByTagName('base');
-
-        if (bases.length > 0) {
-            bases[0].setAttribute('href', environment.baseHref);
-        }
-    }
-}
+      		const description: string = snapshot.data['description'];
+      		this.metaService.updateTag({ name: 'description', content: this.metaDescription + ' ' + description}, 'name=description');
+		}	
+		if(event instanceof NavigationCancel) {
+		}
+		if(event instanceof NavigationError) {
+		}
+	}
 }

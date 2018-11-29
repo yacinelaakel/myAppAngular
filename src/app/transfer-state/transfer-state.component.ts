@@ -6,11 +6,11 @@ import { Component } from '@angular/core';
 })
 export class TransferStateComponent {
 
-    public hits: string;
-    public shake: boolean;
+    hits: string;
+    shake: boolean;
 
-    public performRequest(): void {
-        this.shake = true;
+    performRequest(): void {
+    	this.shake = true;
         setTimeout(() => this.shake = false, 500);
     }
 }

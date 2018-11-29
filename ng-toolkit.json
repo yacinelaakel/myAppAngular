@@ -1,12 +1,12 @@
 {
-  "serverless": {
-    "skipInstall": true,
-    "project": "myAppAngular",
-    "provider": "aws",
-    "directory": "myAppAngular",
-    "serverless": {
-      "aws": {},
-      "gcloud": {}
-    }
-  }
+  	"serverless": {
+    	"skipInstall": true,
+    	"project": "myAppAngular",
+    	"provider": "aws",
+    	"directory": "myAppAngular",
+    	"serverless": {
+      		"aws": {},
+      		"gcloud": {}
+    	}
+  	}
 }

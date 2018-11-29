@@ -1,0 +1,39 @@
+<div class="row">
+	<div class="col-xs-3"></div>
+	<div class="col-xs-6">
+		<h1>Inscription</h1>
+		<form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+			<div class="row">
+				<mat-form-field appearance="outline">
+				    <mat-label>Prénom</mat-label>
+				    <input matInput formControlName="firstname">
+				</mat-form-field>				
+			</div>
+			<div class="row">
+				<mat-form-field appearance="outline">
+				    <mat-label>Nom</mat-label>
+				    <input matInput formControlName="lastname">
+				</mat-form-field>					
+			</div>
+			<div class="row">
+				<mat-form-field appearance="outline">
+				    <mat-label>Email</mat-label>
+				    <input matInput formControlName="email">
+				</mat-form-field>					
+			</div>
+			<div class="row">
+				<mat-form-field appearance="outline">
+				    <mat-label>Mot de passe</mat-label>
+				    <input matInput formControlName="password">
+				</mat-form-field>					
+			</div>
+			<div class="row text-center">
+				<div *ngIf="error" class="alert alert-danger">{{ error }}</div>
+				<button mat-raised-button color="primary" type="submit" [disabled]="registerForm.invalid">
+					Inscription
+				</button>
+			</div>
+		</form>
+	</div>
+	<div class="col-xs-3"></div>
+</div>
