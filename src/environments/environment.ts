@@ -5,7 +5,7 @@
 export const environment = {
   	production: false,
 	baseHref: '/',
-	apiUrl: 'http://localhost:8081/api',
+	apiUrl: 'http://localhost:8081/api', 
 	stripeKey: 'pk_test_9G3NuCpZNY9KXgr4GsLjw4mI',
 };
 
