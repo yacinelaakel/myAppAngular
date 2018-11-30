@@ -1,4 +1,5 @@
 // DELETE THIS FILE WHEN DEV IS FINISHED
+require('dotenv').config(); // .env
 const express    = require('express');
 const bodyParser = require('body-parser');
 const path 		 = require('path');
@@ -15,6 +16,12 @@ mongoose.connect(DB_HOST, {useCreateIndex: true, useNewUrlParser: true});
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use(function (err, req, res, next) {
+  	if (err.name === 'UnauthorizedError') {
+    	res.status(401).send(err.name + ": " + err.message);
+  	}
+});
 
 const account = require('./backend/api/routes/account');
 app.use('/api/account', account);

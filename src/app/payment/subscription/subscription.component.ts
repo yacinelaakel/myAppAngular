@@ -23,14 +23,15 @@ export class SubscriptionComponent implements OnInit {
 	error: string;
 
   	constructor(
-  		private authService: AuthService, 
+  		private authService: AuthService,
   		private paymentService: PaymentService,
   		public snackBar: MatSnackBar
   	) {}
 
   	ngOnInit() {
-  		this.user = this.authService.user;
-  		this.paymentService.getSubscription(this.user._id).subscribe(
+  		this.user = this.authService.getUser();
+  		// Subscription of the user OR null if no subscription
+  		this.paymentService.getSubscribe().subscribe(
   			(sub_info: SubscriptionInterface | null) => {
   				this.sub_info = sub_info;
   			},
@@ -47,7 +48,7 @@ export class SubscriptionComponent implements OnInit {
 	      	currency: 'eur',
 	      	locale: 'auto',
 	      	token: token => {
-	      		this.paymentService.processSubscription(token, this.amount, this.user._id).subscribe(
+	      		this.paymentService.processSubscribe(token, this.amount).subscribe(
 	      			(sub_info: SubscriptionInterface) => {
 			    		this.snackBar.open('Abonnement effectué !', 'OK', {
       						duration: 5000
@@ -70,7 +71,7 @@ export class SubscriptionComponent implements OnInit {
   	}
 
   	OnUnsubscribe() {
-  		this.paymentService.processUnsubscription(this.user._id).subscribe(
+  		this.paymentService.processUnsubscribe().subscribe(
   			(cancel_at_period_end: boolean) => {
 	    		this.snackBar.open('Renouvellement automatique désactivé !', 'OK', {
 					duration: 5000
@@ -84,7 +85,7 @@ export class SubscriptionComponent implements OnInit {
   	}
 
   	OnResubscribe() {
-  		this.paymentService.processResubscription(this.user._id).subscribe(
+  		this.paymentService.processResubscribe().subscribe(
   			(cancel_at_period_end: boolean) => {
 	    		this.snackBar.open('Renouvellement automatique activé !', 'OK', {
 					duration: 5000

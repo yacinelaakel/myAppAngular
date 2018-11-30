@@ -1,4 +1,5 @@
 //PROD SERVER WITH SERVER SIDE RENDERING
+require('dotenv').config(); // .env
 import 'zone.js/dist/zone-node';
 import 'reflect-metadata';
 

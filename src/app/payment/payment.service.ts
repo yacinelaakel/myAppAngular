@@ -14,8 +14,8 @@ export class PaymentService {
 	constructor(private http: HttpClient) {}
 
 	// Return subscription data of the user or null if he never subscribed or has expired sub
-	getSubscription(user_id: string): Observable<SubscriptionInterface> | null {
-		return this.http.get(`${this.apiUrl}/subscription/subscribe/` + user_id).pipe(
+	getSubscribe(): Observable<SubscriptionInterface> | null {
+		return this.http.get(`${this.apiUrl}/subscription/subscribe`).pipe(
 			map((sub_info: SubscriptionInterface) => {
 				if(sub_info) {
 					return sub_info;
@@ -28,8 +28,8 @@ export class PaymentService {
 	}
 
 	// Subscribe a user
-	processSubscription(token: object, amount: number, user_id: string): Observable<SubscriptionInterface> {
-		const data = { token, amount, user_id };
+	processSubscribe(token: object, amount: number): Observable<SubscriptionInterface> {
+		const data = { token, amount };
 		return this.http.post(`${this.apiUrl}/subscription/subscribe`, data).pipe(
 			map((sub_info: SubscriptionInterface) => {
 				if(sub_info) {
@@ -40,21 +40,15 @@ export class PaymentService {
 	}
 
 	// Cancel automatic billing
-	processUnsubscription(user_id: string): Observable<boolean> {
-		return this.http.get(`${this.apiUrl}/subscription/unsubscribe/` + user_id).pipe(
-			map((cancel_at_period_end: boolean) => {
-				return cancel_at_period_end; //true
-			})
-		);
+	processUnsubscribe(): Observable<boolean> {
+		return this.http.get(`${this.apiUrl}/subscription/unsubscribe`).pipe(
+			map((cancel_at_period_end: boolean) => cancel_at_period_end)); //true
 	}
 
 	// Reactivate automatic billing
-	processResubscription(user_id: string): Observable<boolean> {
-		return this.http.get(`${this.apiUrl}/subscription/resubscribe/` + user_id).pipe(
-			map((cancel_at_period_end: boolean) => {
-				return cancel_at_period_end; //false
-			})
-		);
+	processResubscribe(): Observable<boolean> {
+		return this.http.get(`${this.apiUrl}/subscription/resubscribe`).pipe(
+			map((cancel_at_period_end: boolean) => cancel_at_period_end)); //false
 	}
 }
 

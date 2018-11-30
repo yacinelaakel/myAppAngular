@@ -19,9 +19,9 @@ export class ProfileComponent implements OnInit {
   	constructor(private fb: FormBuilder, private authService: AuthService) { }
 
   	ngOnInit() {
-	   	this.authService.userSubject.subscribe(
-	   		(user: UserInterface) => {
-	   			this.user = user;
+	   	this.authService.tokenSubject.subscribe(
+	   		() => {
+	   			this.user = this.authService.getUser();
 		 		this.editUserForm = this.fb.group({
 					firstname: [this.user.firstname, Validators.required],
 					lastname: [this.user.lastname, Validators.required],
@@ -29,7 +29,7 @@ export class ProfileComponent implements OnInit {
 				});
 	   		}
 	   	);
-	   	this.authService.emitUserSubject();
+	   	this.authService.emitTokenSubject();
   	}
 
   	toggleEditMode() {
@@ -37,7 +37,6 @@ export class ProfileComponent implements OnInit {
   	}
 
   	onSubmitUser() {
-  		this.editUserForm.value.user_id = this.user._id;
   		this.authService.editUser(this.editUserForm.value).subscribe(
   			() => {
   				this.success = 'Utilisateur bien mis à jour';

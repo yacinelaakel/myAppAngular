@@ -4,7 +4,10 @@ import { CommonModule }     from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { TranslateModule }  from '@ngx-translate/core';
 
-import { SocialLoginModule, AuthServiceConfig } from "angularx-social-login";
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { TokenInterceptor }  from './http-interceptors/token-interceptor';
+
+import { SocialLoginModule, AuthServiceConfig } from 'angularx-social-login';
 import { getAuthServiceConfigs } 			    from './auth/social-config';
 
 import { MyMaterialModule } 	  from './material.module';
@@ -44,8 +47,24 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
         LoadingBarRouterModule,
         TranslateModule.forChild(),
         AppRoutingModule,
-      ],
-      providers: [SnackBar, WindowRef, Notifications, HitWithTransferStateResolver, HitWithoutTransferStateResolver, ExampleApi, { provide: AuthServiceConfig, useFactory: getAuthServiceConfigs }],
-      bootstrap: [AppComponent]
+    ],
+    providers: [
+    	SnackBar, 
+      	WindowRef, 
+      	Notifications, 
+      	HitWithTransferStateResolver, 
+      	HitWithoutTransferStateResolver, 
+      	ExampleApi, 
+      	{ 
+      		provide: AuthServiceConfig, 
+      		useFactory: getAuthServiceConfigs 
+      	},
+	    {
+	      provide: HTTP_INTERCEPTORS,
+	      useClass: TokenInterceptor,
+	      multi: true
+	    }
+	],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }

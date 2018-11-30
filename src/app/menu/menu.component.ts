@@ -48,12 +48,12 @@ export class MenuComponent implements OnInit {
 	   	else {
 	   		this.mobile = true;
 	   	}
-	   	this.authService.userSubject.subscribe(
-	   		(user) => {
-	   			this.user = user;
+	   	this.authService.tokenSubject.subscribe(
+	   		() => {
+	   			this.user = this.authService.getUser();
 	   		}
 	   	);
-	   	this.authService.emitUserSubject();
+	   	this.authService.emitTokenSubject();
    	}
 
 }

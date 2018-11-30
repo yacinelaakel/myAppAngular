@@ -1,10 +1,4 @@
 ## Content
- - [What's inside](#quickOverview):
-    - [PWA starter](https://github.com/maciejtreder/ng-toolkit/tree/master/schematics/init/README.md)
-    - [Serverless support for existing projects](https://github.com/maciejtreder/ng-toolkit/tree/master/schematics/serverless/README.md)
-	- Basics functionnalities we can found on most apps
-
-## <a name="quickOverview">  What's inside
 
 #### PWA 
 
@@ -17,7 +11,7 @@
 > content on the initial request. What customer gets, is fully rendered website and application packed in 
 > the js file.
 
-- Thanks to Angular Universal you got :
+Thanks to Angular Universal you got :
 	- Better perceived performance
     - Search Engine Optimization
   	- Site preview
@@ -26,7 +20,7 @@
 
 #### AMP
 
-> Accelerated Mobile Pages</strong> is an open-source initiative. The project enables the creation of web 
+> Accelerated Mobile Pages is an open-source initiative. The project enables the creation of web 
 > applications that are fast and high-performing across devices and platforms.
 
 #### Serverless support
@@ -35,7 +29,7 @@
 > those resources which you are factually using, instead of running your hosting 24 hours for 7 days a 
 > week.
 
-- Most popular Serverless environemnts are : 
+Most popular Serverless environments are : 	
 	- AWS Lambda
   	- Google Cloud Functions
   	- Azure Functions
@@ -55,13 +49,14 @@ npm install
 npm run start
 ```
 - Node dev server file : server.dev.js
-- Angular CLI front port : localhost:4200
+- Angular CLI port : localhost:4200
 - Node server port : localhost:8081
 
 ### Prod
 ```
 npm install
 npm run build:prod
+npm run server
 ```
 - Node prod server file : server.ts
-- Prod front and back ports : localhost:4200
+- Prod ports : localhost:8081

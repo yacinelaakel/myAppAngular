@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit }	   from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { Router } 				   from '@angular/router';
 
 import { Observable, pipe } from 'rxjs';
-import { concatMap } from 'rxjs/operators';
+import { concatMap } 		from 'rxjs/operators';
 
 import { 
 	AuthService as SocialAuthService,
