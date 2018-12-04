@@ -1,6 +1,13 @@
-const transporter = require('../utils/mailer');
+const webpush = require('web-push');
+webpush.setVapidDetails(
+	'mailto:yacine.laakel@hotmail.fr', 
+	process.env.PUBLIC_VAPID, 
+	process.env.PRIVATE_VAPID
+);
 
-const User = require('../models/User');
+const transporter  = require('../utils/mailer');
+const User 		   = require('../models/User');
+const Notification = require('../models/Notification');
 
 module.exports.login = function(req, res) {
     const { email, password } = req.body;
@@ -19,7 +26,7 @@ module.exports.login = function(req, res) {
         // 	return res.status(401).send('Compte inactif.');
         // }
         // We send a token (string) that contain all user data encoded
-        let token = user.generateJwt();
+        let token = user.generateJwt();	
         return res.status(200).send(token);
     });
 }
@@ -92,11 +99,28 @@ module.exports.editUser = function(req, res) {
 		user.updatedAt = new Date();
 
 		user.save((err, user) => {
+	        let token = user.generateJwt();
 			if(err) {
 				return res.status(500).send('Erreur de connexion');
 			}
-	        let token = user.generateJwt();
-	        return res.status(200).send(token);
+			const notificationPayload = {
+			    notification: {
+			      	title: 'MyAppAngular',
+			      	body: user.firstname + ' a mis à jour son compte',
+			      	icon: 'assets/icons/icon-512x512.png'
+			    }
+			}
+		  	Notification.find({}, (err, notifs) => {
+				Promise.all(
+					notifs.map(notif => {
+						webpush.sendNotification(JSON.parse(notif.subscription), JSON.stringify(notificationPayload))
+					})
+				)
+				.then(() => res.status(200).send(token))
+			    .catch(err => {
+			        res.status(500).send('Error sending notification, reason: ', err);
+			    });
+			});
 		});
 	});
 }

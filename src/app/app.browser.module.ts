@@ -1,14 +1,15 @@
 import { NgModule } from '@angular/core';
 import { HttpClient, HttpClientModule }     from '@angular/common/http';
-import { BrowserModule, BrowserTransferStateModule } from '@angular/platform-browser';
+import { BrowserModule } 				    from '@angular/platform-browser';
 import { BrowserAnimationsModule }          from '@angular/platform-browser/animations';
 import { ServiceWorkerModule }              from '@angular/service-worker';
 
 import { TranslateHttpLoader } 			    from '@ngx-translate/http-loader';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
-import { AppComponent } from './app.component';
+import { environment } 	from '../environments/environment';
 import { AppModule }    from './app.module';
+import { AppComponent } from './app.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
     return new TranslateHttpLoader(http);
@@ -22,7 +23,6 @@ export function HttpLoaderFactory(http: HttpClient) {
         BrowserAnimationsModule,
         HttpClientModule,
         AppModule,
-        BrowserTransferStateModule,
         ServiceWorkerModule.register('/ngsw-worker.js'),
         TranslateModule.forRoot({
             loader: {provide: TranslateLoader, useFactory: HttpLoaderFactory, deps: [HttpClient]}

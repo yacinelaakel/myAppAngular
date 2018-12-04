@@ -4,7 +4,7 @@ const jwt 	  = require('express-jwt');
 
 const authRequired = jwt({
   	secret: process.env.JWT_SECRET_MESSAGE,
-  	userProperty: 'userJwt'
+  	requestProperty: 'userJwt'
 });
 
 const ctrlSub = require('../controllers/subscription');

@@ -23,6 +23,9 @@ app.use(function (err, req, res, next) {
   	}
 });
 
+const notification = require('./backend/api/routes/notification');
+app.use('/api/notification', notification);
+
 const account = require('./backend/api/routes/account');
 app.use('/api/account', account);
 

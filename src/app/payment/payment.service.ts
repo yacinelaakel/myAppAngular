@@ -16,14 +16,7 @@ export class PaymentService {
 	// Return subscription data of the user or null if he never subscribed or has expired sub
 	getSubscribe(): Observable<SubscriptionInterface> | null {
 		return this.http.get(`${this.apiUrl}/subscription/subscribe`).pipe(
-			map((sub_info: SubscriptionInterface) => {
-				if(sub_info) {
-					return sub_info;
-				}
-				else {
-					return null;
-				}
-			})
+			map((sub_info: SubscriptionInterface | null) => sub_info)
 		);
 	}
 
@@ -31,11 +24,7 @@ export class PaymentService {
 	processSubscribe(token: object, amount: number): Observable<SubscriptionInterface> {
 		const data = { token, amount };
 		return this.http.post(`${this.apiUrl}/subscription/subscribe`, data).pipe(
-			map((sub_info: SubscriptionInterface) => {
-				if(sub_info) {
-					return sub_info;
-				}
-			})
+			map((sub_info: SubscriptionInterface) => sub_info)
 		);
 	}
 

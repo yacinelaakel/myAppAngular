@@ -1,5 +1,5 @@
-import { NgModule } from '@angular/core';
-import { ServerModule, ServerTransferStateModule } from '@angular/platform-server';
+import { NgModule } 						from '@angular/core';
+import { ServerModule } 					from '@angular/platform-server';
 import { BrowserModule }                    from '@angular/platform-browser';
 import { NoopAnimationsModule }             from '@angular/platform-browser/animations';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
@@ -29,10 +29,9 @@ export function universalLoader(): TranslateLoader {
         }),
         AppModule,
         ServerModule,
-        ServerTransferStateModule,
+        ServiceWorkerModuleMock,
         NoopAnimationsModule,
         ModuleMapLoaderModule,
-        ServiceWorkerModuleMock,
         TranslateModule.forRoot({
             loader: {provide: TranslateLoader, useFactory: universalLoader}
         }),

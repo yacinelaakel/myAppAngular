@@ -3,7 +3,7 @@ import { isPlatformBrowser } from '@angular/common';
 import { pipe, fromEvent }   from 'rxjs';
 import { throttleTime } 	 from 'rxjs/operators';
 
-import { AuthService } from '../auth/auth.service';
+import { AuthService, UserInterface } from '../auth/auth.service';
 
 @Component({
   	selector: 'menu',
@@ -12,11 +12,10 @@ import { AuthService } from '../auth/auth.service';
 })
 export class MenuComponent implements OnInit {
 
-	user: object | null;
+	user: UserInterface | null;
   
    	menuElements: MenuElement[] = [
     	{link: '', icon: 'home', text: 'Home'},
-    	{link: 'transferState', icon: 'call_merge', text: 'TransferState (API calls)'},
   	];
 
    	menuElementsAnon: MenuElement[] = [

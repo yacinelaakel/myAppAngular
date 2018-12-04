@@ -45,6 +45,9 @@ app.set('views', join(DIST_FOLDER));
 app.get('*.*', express.static(join(DIST_FOLDER)));
 
 // Backend Node routes
+const notification = require('./backend/api/routes/notification');
+app.use('/api/notification', notification);
+
 const account = require('./backend/api/routes/account');
 app.use('/api/account', account);
 

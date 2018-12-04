@@ -18,6 +18,14 @@ Thanks to Angular Universal you got :
 
 #### Lazy-Loading 
 
+#### Push Notifications
+
+#### JWT Authentication Protection
+
+#### Social Authentication (Facebook)
+
+#### SAAS Subscriptions
+
 #### AMP
 
 > Accelerated Mobile Pages is an open-source initiative. The project enables the creation of web 

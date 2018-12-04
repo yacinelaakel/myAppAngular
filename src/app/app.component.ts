@@ -1,7 +1,7 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { isPlatformBrowser } 		 from '@angular/common';
-import { Meta, Title }				 from '@angular/platform-browser';
-import { SwUpdate }					 from '@angular/service-worker';
+import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { Meta, Title }		 from '@angular/platform-browser';
+import { SwUpdate }			 from '@angular/service-worker';
 import { 
 		ActivatedRouteSnapshot,
         Event,
@@ -13,11 +13,7 @@ import {
 } from '@angular/router';
 
 import { TranslateService } from '@ngx-translate/core';
-import { filter } 			from 'rxjs/operators';
-
-import { SnackBar, SnackBarNotification } from './services/snack-bar.service';
-import { WindowRef } 					  from './window-ref.service';
-
+import { Notifications }    from './services/notifications.service';
 
 @Component({
     selector: 'app-root',
@@ -30,36 +26,30 @@ export class AppComponent implements OnInit {
   	metaDescription: string = this.metaService.getTag('name=description').content;
 
   	constructor(
-    	private snackBarService: SnackBar,
-    	private windowRef: WindowRef,
+  		@Inject(PLATFORM_ID) private platform: any,
     	private swUpdate: SwUpdate,
-    	private translate: TranslateService,
+    	private notifService: Notifications,
+    	private translateService: TranslateService,
     	private titleService: Title,
     	private metaService: Meta,
     	private router: Router
   	) {
-    	this.translate.setDefaultLang(this.translate.getBrowserLang());
+    	this.translateService.setDefaultLang(this.translateService.getBrowserLang());
   	}
 
   	ngOnInit(): void {	
+  		// Intercept route changing
   		this.router.events.subscribe((event: Event) => this.navigationInterceptor(event));
-    	// Check for update
-  		this.swUpdate.available.subscribe((evt) => {
-    		this.snackBarService.displayNotification({
-      			message: 'Une nouvelle version de l\'app est disponible',
-      			action: 'Lancer',
-      			force: true,
-      			callback: () => {
-        			this.windowRef.nativeWindow.location.reload(true);
-      			}
-    		} as SnackBarNotification);
-  		});
-
-      	this.swUpdate.checkForUpdate().then(() => {
-        	// noop
-      	}).catch((err) => {
-        	console.error('error when checking for update', err);
-      	});
+    	// Check for app update
+  		this.swUpdate.available.subscribe(
+  			() => {
+	  			if(isPlatformBrowser(this.platform)) {
+	    			window.location.reload(true);
+	  			}
+  			}
+  		);
+  		// Ask user if he wants to receive server push notification
+ 		this.notifService.requestSubscription();
 	}
 
 	private navigationInterceptor(event: Event) {
