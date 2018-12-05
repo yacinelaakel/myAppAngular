@@ -52,6 +52,7 @@
         "core-js": "^2.5.4",
         "cors": "~2.8.4",
         "dotenv": "^6.1.0",
+        "event-stream": "^4.0.1",
         "express-jwt": "^5.3.1",
         "file-system": "^2.2.2",
         "jsonwebtoken": "^8.4.0",
@@ -109,7 +110,7 @@
         "type": "opencollective",
         "url": "https://opencollective.com/ng-toolkit"
     },
-  	"engines": {
-    	"node": "10.14.1"
-  	}
+    "engines": {
+        "node": "10.14.1"
+    }
 }
