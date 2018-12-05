@@ -2,7 +2,7 @@
 	<div class="col-xs-12 text-center">
 		<h1>Mon abonnement</h1>
 
-		<p>Abonné : {{ sub_info ? Oui : Non }}</p>
+		<p>Abonné : {{ sub_info ? 'Oui' : 'Non' }}</p>
 
 		<button *ngIf="sub_info" mat-raised-button disabled>Je suis déjà abonné</button>
 		
