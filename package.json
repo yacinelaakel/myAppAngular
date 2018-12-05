@@ -3,7 +3,8 @@
     "version": "0.0.0",
     "scripts": {
         "ng": "ng",
-        "start": "run-p build:watch",
+        "start": "npm run server",
+        "start:dev": "run-p build:watch",
         "build": "ng build",
         "lint": "ng lint --fix",
         "e2e": "ng e2e",
@@ -17,7 +18,7 @@
         "deploy": "serverless deploy",
         "build:server:prod": "ng run myAppAngular:server && webpack --config webpack.server.config.js --progress --colors",
         "build:server:serverless": "ng run myAppAngular:server:serverless && webpack --config webpack.server.config.js --progress --colors",
-        "postinstall": "npm run build:prod && npm run server",
+        "postinstall": "npm run build:prod",
         "build:watch": "concurrently \"ng serve\" \"nodemon ./server.dev.js\"",
         "build:dev": "run-p test:watch start",
         "webpack:server": "webpack --config webpack.server.config.js --progress --colors",
