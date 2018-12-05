@@ -108,5 +108,8 @@
     "collective": {
         "type": "opencollective",
         "url": "https://opencollective.com/ng-toolkit"
-    }
+    },
+  	"engines": {
+    	"node": "10.14.1"
+  	}
 }
