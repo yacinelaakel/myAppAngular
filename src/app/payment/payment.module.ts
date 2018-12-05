@@ -1,10 +1,9 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { NgModule } 		   from '@angular/core';
+import { CommonModule } 	   from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { MyMaterialModule } from '../material.module';
-
-import { PaymentRouting } from './payment-routing.module';
+import { PaymentRouting }   from './payment-routing.module';
 
 import { SubscriptionComponent } from './subscription/subscription.component';
 
@@ -19,4 +18,4 @@ import { SubscriptionComponent } from './subscription/subscription.component';
     	PaymentRouting
   	]	
 })
-export class PaymentModule { }
+export class PaymentModule {}

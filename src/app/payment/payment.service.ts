@@ -1,8 +1,8 @@
-import { Injectable } 		  from '@angular/core';
-import { HttpClient }  	      from '@angular/common/http';
-import { environment } 	      from '../../environments/environment';
+import { Injectable } 		  		 from '@angular/core';
+import { HttpClient }  	      		 from '@angular/common/http';
 import { Observable, Subject, pipe } from 'rxjs';
-import { map } 			      from 'rxjs/operators';
+import { map } 			      		 from 'rxjs/operators';
+import { environment } 	      		 from '../../environments/environment';
 
 @Injectable({
 	providedIn: 'root'
@@ -31,13 +31,15 @@ export class PaymentService {
 	// Cancel automatic billing
 	processUnsubscribe(): Observable<boolean> {
 		return this.http.get(`${this.apiUrl}/subscription/unsubscribe`).pipe(
-			map((cancel_at_period_end: boolean) => cancel_at_period_end)); //true
+			map((cancel_at_period_end: boolean) => cancel_at_period_end) //true
+		); 
 	}
 
 	// Reactivate automatic billing
 	processResubscribe(): Observable<boolean> {
 		return this.http.get(`${this.apiUrl}/subscription/resubscribe`).pipe(
-			map((cancel_at_period_end: boolean) => cancel_at_period_end)); //false
+			map((cancel_at_period_end: boolean) => cancel_at_period_end) //false
+		); 
 	}
 }
 

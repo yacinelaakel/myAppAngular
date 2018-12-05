@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
-import { isPlatformBrowser } from '@angular/common';
-import { Meta, Title }		 from '@angular/platform-browser';
-import { SwUpdate }			 from '@angular/service-worker';
+import { isPlatformBrowser } 				      from '@angular/common';
+import { Meta, Title }		 				      from '@angular/platform-browser';
+import { SwUpdate }								  from '@angular/service-worker';
 import { 
 		ActivatedRouteSnapshot,
         Event,

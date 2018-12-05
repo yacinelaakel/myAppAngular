@@ -2,7 +2,7 @@
 	<div class="col-xs-12 text-center">
 		<h1>Mon abonnement</h1>
 
-		<p>Abonné : <span *ngIf="sub_info">Oui</span><span *ngIf="!sub_info">Non</span></p>
+		<p>Abonné : {{ sub_info ? Oui : Non }}</p>
 
 		<button *ngIf="sub_info" mat-raised-button disabled>Je suis déjà abonné</button>
 		
@@ -26,10 +26,10 @@
 				<p>Offres restante : {{sub_info.offers}}</p>	
 				<p>Renouvellement automatique : </p>	
 				<div *ngIf="!sub_info.cancel_at_period_end">
-					<span>Activer</span> | <button (click)="OnUnsubscribe()">Désactiver</button>
+					<span>Activer</span> | <button (click)="onUnsubscribe()">Désactiver</button>
 				</div>
 				<div *ngIf="sub_info.cancel_at_period_end">
-					<button (click)="OnResubscribe()">Activer</button> | <span>Désactiver</span>
+					<button (click)="onResubscribe()">Activer</button> | <span>Désactiver</span>
 				</div>
 			</div>
 			<div class="col-xs-6">

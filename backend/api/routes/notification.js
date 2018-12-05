@@ -1,18 +1,5 @@
 const express = require('express');
 const router  = express.Router();
-const webpush = require('web-push');
-// const jwt 	  = require('express-jwt');
-
-// const authRequired = jwt({
-//   	secret: process.env.JWT_SECRET_MESSAGE,
-//   	requestProperty: 'userJwt'
-// });
-
-webpush.setVapidDetails(
-	'mailto:yacine.laakel@hotmail.fr', 
-	process.env.PUBLIC_VAPID, 
-	process.env.PRIVATE_VAPID
-);
 
 const Notification = require('../models/Notification');
 

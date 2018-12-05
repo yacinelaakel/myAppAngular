@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
-import { isPlatformBrowser } from '@angular/common';
-import { pipe, fromEvent }   from 'rxjs';
-import { throttleTime } 	 from 'rxjs/operators';
+import { isPlatformBrowser } 					  from '@angular/common';
+import { pipe, fromEvent }   					  from 'rxjs';
+import { throttleTime } 	 				      from 'rxjs/operators';
 
 import { AuthService, UserInterface } from '../auth/auth.service';
 
@@ -11,16 +11,14 @@ import { AuthService, UserInterface } from '../auth/auth.service';
   	styleUrls: ['./menu.component.scss']
 })
 export class MenuComponent implements OnInit {
-
-	user: UserInterface | null;
   
    	menuElements: MenuElement[] = [
     	{link: '', icon: 'home', text: 'Home'},
   	];
 
    	menuElementsAnon: MenuElement[] = [
-    	{link: 'login', icon: 'call_merge', text: 'Connexion'},
-    	{link: 'register', icon: 'call_merge', text: 'Inscription'},
+    	{link: 'login', icon: 'face', text: 'Connexion'},
+    	{link: 'register', icon: 'account_box', text: 'Inscription'},
   	];
 
   	menuElementsUser: MenuElement[] = [
@@ -29,6 +27,7 @@ export class MenuComponent implements OnInit {
     	{link: 'logout', icon: 'call_merge', text: 'Déconnexion'},
   	];
 
+	user: UserInterface | null;
   	mobile: boolean; 
 
   	constructor(

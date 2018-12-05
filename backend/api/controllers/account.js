@@ -9,7 +9,7 @@ const transporter  = require('../utils/mailer');
 const User 		   = require('../models/User');
 const Notification = require('../models/Notification');
 
-module.exports.login = function(req, res) {
+module.exports.login = (req, res) => {
     const { email, password } = req.body;
 
     User.findOne({email: email}, (err, user) => {
@@ -31,17 +31,15 @@ module.exports.login = function(req, res) {
     });
 }
 
-module.exports.register = function(req, res) {
+module.exports.register = (req, res) => {
     let newUser = new User(req.body);
     newUser.password = newUser.generateHash(req.body.password);
 
     newUser.save((err, newUser) => {
         if(err) { 
-            let error = {};
             let field = Object.keys(err.errors)[0];
-            let value = err.errors[field].message;
-            error[field] = value;
-            return res.status(400).send(error[field]); 
+            let message = err.errors[field].message;
+            return res.status(400).send(message); 
         }
         let token = newUser.generateJwt();
         return res.status(200).send(token);
@@ -49,7 +47,7 @@ module.exports.register = function(req, res) {
 }
 
 // Login OR Register with Facebook
-module.exports.facebook = function(req, res) {
+module.exports.facebook = (req, res) => {
 	const { email, firstName, lastName } = req.body;
 
     User.findOne({email: email}, (err, user) => {
@@ -67,11 +65,9 @@ module.exports.facebook = function(req, res) {
 
         newUser.save((err, newUser) => {
 	        if(err) { 
-	            let error = {};
 	            let field = Object.keys(err.errors)[0];
-	            let value = err.errors[field].message;
-	            error[field] = value;
-	            return res.status(400).send(error[field]); 
+	            let message = err.errors[field].message;
+	            return res.status(400).send(message); 
 	        }
 	        let token = newUser.generateJwt();
 	        return res.status(200).send(token);
@@ -79,7 +75,7 @@ module.exports.facebook = function(req, res) {
     });
 }
 
-module.exports.editUser = function(req, res) {
+module.exports.editUser = (req, res) => {
 	const {
 		firstname,
 		lastname,
@@ -99,10 +95,12 @@ module.exports.editUser = function(req, res) {
 		user.updatedAt = new Date();
 
 		user.save((err, user) => {
+	        if(err) { 
+	            let field = Object.keys(err.errors)[0];
+	            let message = err.errors[field].message;
+	            return res.status(400).send(message); 
+	        }
 	        let token = user.generateJwt();
-			if(err) {
-				return res.status(500).send('Erreur de connexion');
-			}
 			const notificationPayload = {
 			    notification: {
 			      	title: 'MyAppAngular',
@@ -125,7 +123,7 @@ module.exports.editUser = function(req, res) {
 	});
 }
 
-module.exports.forgottenPassword = function(req, res) {
+module.exports.forgottenPassword = (req, res) => {
 	const { email } = req.body;
 
 	User.findOne({email: email}, (err, user) => {
@@ -146,7 +144,7 @@ module.exports.forgottenPassword = function(req, res) {
 			  	from: 'yacinelaakel@gmail.com',
 			  	to: email,
 			  	subject: 'Mot de passe oublié - MyAngularApp',
-			  	html: '<p>Click <a href="http://localhost:4200/reset-password/' + token + '/' + user._id + '">here</a></p>'
+			  	html: '<p>Click <a href="http://localhost:8081/reset-password/' + token + '/' + user._id + '">here</a></p>'
 			};
 			transporter.sendMail(mailOptions, (err, info) => {
 			  	if(err) {
@@ -158,7 +156,7 @@ module.exports.forgottenPassword = function(req, res) {
 	});
 }
 
-module.exports.resetPassword = function(req, res) {
+module.exports.resetPassword = (req, res) => {
 	const { token, user_id, password } = req.body;
 
 	User.findOne({"_id": user_id}, (err, user) => {

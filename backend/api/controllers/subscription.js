@@ -1,6 +1,5 @@
 const stripe 	   = require('stripe')(process.env.STRIPE_SECRET_KEY);
 const DateManager  = require('../utils/date_manager');
-
 const Subscription = require('../models/Subscription');
 
 const plans = [
@@ -18,7 +17,7 @@ const plans = [
 	}
 ];
 
-module.exports.getSubscribe = function(req, res) {
+module.exports.getSubscribe = (req, res) => {
 	// subscription  = database object
 	// subscriptions = stripe object
 	Subscription.findOne({user: req.userJwt._id}, (err, subscription) => {
@@ -48,7 +47,7 @@ module.exports.getSubscribe = function(req, res) {
 	});
 }
 
-module.exports.postSubscribe = function(req, res) {
+module.exports.postSubscribe = (req, res) => {
 	const { token, amount } = req.body;
 	const plan = plans.find(plan => plan.amount === amount);
 
@@ -59,6 +58,7 @@ module.exports.postSubscribe = function(req, res) {
 		if(subscription) {
 			// We update existing customer for stripe. NEVER DELETE CUSTOMER ON STRIPE DASHBOARD 
 			stripe.customers.update(subscription.customer_id, {
+				email: token.email,
 			  	source: token.id
 			}, (err, customer) => {
 				if(err) {
@@ -92,6 +92,7 @@ module.exports.postSubscribe = function(req, res) {
 			})
 		}
 		else {
+			// We create a new stripe customer
 			stripe.customers.create({
 			  	email: token.email,
 			  	source: token.id
@@ -131,7 +132,7 @@ module.exports.postSubscribe = function(req, res) {
 	});
 }
 
-module.exports.unsubscribe = function(req, res) {
+module.exports.unsubscribe = (req, res) => {
 	Subscription.findOne({user: req.userJwt._id}, (err, subscription) => {
 		if(err) {
 			return res.status(500).send('Erreur de connexion.');
@@ -145,7 +146,7 @@ module.exports.unsubscribe = function(req, res) {
 	});
 }
 
-module.exports.resubscribe = function(req, res) {
+module.exports.resubscribe = (req, res) => {
 	Subscription.findOne({user: req.userJwt._id}, (err, subscription) => {
 		if(err) {
 			return res.status(500).send('Erreur de connexion.');

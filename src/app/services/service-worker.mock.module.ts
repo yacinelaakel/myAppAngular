@@ -31,7 +31,6 @@ export class SwUpdateServerMock {
   	}
 }
 
-
 @NgModule({
     providers: [
         {provide: SwUpdate, useClass: SwUpdateServerMock },

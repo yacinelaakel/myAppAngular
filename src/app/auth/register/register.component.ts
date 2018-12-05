@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit }  	   from '@angular/core';
+import { Router } 			 	   from '@angular/router';
 import { FormBuilder, Validators } from '@angular/forms';
 
 import { AuthService } from '../auth.service';
@@ -23,7 +23,7 @@ export class RegisterComponent implements OnInit {
   		private fb: FormBuilder, 
   		private authService: AuthService,
   		private router: Router
-  	) { }
+  	) {}
 
   	ngOnInit() {}
 
@@ -33,7 +33,6 @@ export class RegisterComponent implements OnInit {
   				this.router.navigate(['/']);
   			},
   			(err) => {
-  				console.log(err);
   				this.error = err.error;
   			}
   		);

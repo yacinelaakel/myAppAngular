@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } 				  from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { AuthService, UserInterface } from '../auth.service';
@@ -11,12 +11,15 @@ import { AuthService, UserInterface } from '../auth.service';
 export class ProfileComponent implements OnInit {
 
 	user: UserInterface;
-	editMode: boolean = false;
 	editUserForm: FormGroup;
+	editMode: boolean = false;
 	success: string;
 	error: string;
 
-  	constructor(private fb: FormBuilder, private authService: AuthService) { }
+  	constructor(
+  		private fb: FormBuilder, 
+  		private authService: AuthService
+  	) {}
 
   	ngOnInit() {
 	   	this.authService.tokenSubject.subscribe(

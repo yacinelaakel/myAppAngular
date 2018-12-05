@@ -1,10 +1,10 @@
-import { NgModule }         from '@angular/core';
-import { RouterModule }     from '@angular/router';
-import { CommonModule }     from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
-import { TranslateModule }  from '@ngx-translate/core';
-
+import { NgModule }          from '@angular/core';
+import { RouterModule }      from '@angular/router';
+import { CommonModule }      from '@angular/common';
+import { HttpClientModule }  from '@angular/common/http';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { TranslateModule }   from '@ngx-translate/core';
+
 import { TokenInterceptor }  from './http-interceptors/token-interceptor';
 
 import { SocialLoginModule, AuthServiceConfig } from 'angularx-social-login';

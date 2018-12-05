@@ -1,13 +1,13 @@
-import { NgModule } from '@angular/core';
+import { NgModule } 			from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { AuthGuard } from './auth.guard';
 
-import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './register/register.component';
+import { LoginComponent } 		  from './login/login.component';
+import { RegisterComponent } 	  from './register/register.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
-import { ProfileComponent } from './profile/profile.component';
-import { LogoutComponent } from './logout/logout.component';
+import { ProfileComponent } 	  from './profile/profile.component';
+import { LogoutComponent } 		  from './logout/logout.component';
 
 const authRoutes: Routes = [
 	{ path: 'login', component: LoginComponent },

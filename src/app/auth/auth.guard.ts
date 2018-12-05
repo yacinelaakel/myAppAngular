@@ -1,5 +1,5 @@
 import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
-import { isPlatformBrowser } from '@angular/common';
+import { isPlatformBrowser } 			   from '@angular/common';
 import { 
 	Router,
 	CanActivate, 
@@ -16,15 +16,15 @@ import { AuthService } from './auth.service';
 export class AuthGuard implements CanActivate {
 
 	constructor(
+		@Inject(PLATFORM_ID) private platform: any,
 		private authService: AuthService, 
-		private router: Router,
-		@Inject(PLATFORM_ID) private platform: any
+		private router: Router
 	) {}
 
   	canActivate(
     	next: ActivatedRouteSnapshot,
     	state: RouterStateSnapshot
-    ): Observable<boolean> | Promise<boolean> | boolean {
+    ): Observable<boolean> | boolean {
     	let url = state.url;
     	return this.checkLogin(url);
   	}

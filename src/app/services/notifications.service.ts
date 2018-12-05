@@ -1,8 +1,8 @@
 import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser }  			   from '@angular/common';
-import { HttpClient }  from '@angular/common/http';
-import { SwPush }      from '@angular/service-worker';
-import { Observable }  from 'rxjs';
+import { HttpClient }  					   from '@angular/common/http';
+import { SwPush }      					   from '@angular/service-worker';
+import { Observable } 					   from 'rxjs';
 import { environment } from '../../environments/environment';
 
 @Injectable({

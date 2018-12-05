@@ -1,11 +1,11 @@
 import { Component, OnInit, HostListener } from '@angular/core';
-import { environment } from '../../../environments/environment';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } 				       from '@angular/material';
+import { environment } 					   from '../../../environments/environment';
 
 //StripeCheckout object from CDN
 declare var StripeCheckout: any;
 
-import { AuthService, UserInterface } from '../../auth/auth.service';
+import { AuthService, UserInterface } 		    from '../../auth/auth.service';
 import { PaymentService, SubscriptionInterface } from '../payment.service';
 
 @Component({
@@ -70,7 +70,7 @@ export class SubscriptionComponent implements OnInit {
 	    });
   	}
 
-  	OnUnsubscribe() {
+  	onUnsubscribe() {
   		this.paymentService.processUnsubscribe().subscribe(
   			(cancel_at_period_end: boolean) => {
 	    		this.snackBar.open('Renouvellement automatique désactivé !', 'OK', {
@@ -84,7 +84,7 @@ export class SubscriptionComponent implements OnInit {
   		);
   	}
 
-  	OnResubscribe() {
+  	onResubscribe() {
   		this.paymentService.processResubscribe().subscribe(
   			(cancel_at_period_end: boolean) => {
 	    		this.snackBar.open('Renouvellement automatique activé !', 'OK', {

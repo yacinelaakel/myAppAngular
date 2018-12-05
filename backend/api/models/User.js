@@ -36,7 +36,7 @@ UserSchema.methods.generateJwt = function() {
     	createdAt: this.createdAt,
     	updatedAt: this.updatedAt,
     	exp: parseInt(expiry.getTime() / 1000),
-  	}, process.env.JWT_SECRET_MESSAGE); // DO NOT KEEP YOUR SECRET IN THE CODE!
+  	}, process.env.JWT_SECRET_MESSAGE);
 };
 
 module.exports = mongoose.model('User', UserSchema);
