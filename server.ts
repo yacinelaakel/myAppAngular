@@ -45,6 +45,12 @@ app.set('views', join(DIST_FOLDER));
 app.get('*.*', express.static(join(DIST_FOLDER)));
 
 // Backend Node routes
+app.use(function (err, req, res, next) {
+  	if (err.name === 'UnauthorizedError') {
+    	res.status(401).send(err.name + ": " + err.message);
+  	}
+});
+
 const notification = require('./backend/api/routes/notification');
 app.use('/api/notification', notification);
 

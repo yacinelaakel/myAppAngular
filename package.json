@@ -17,7 +17,7 @@
         "deploy": "serverless deploy",
         "build:server:prod": "ng run myAppAngular:server && webpack --config webpack.server.config.js --progress --colors",
         "build:server:serverless": "ng run myAppAngular:server:serverless && webpack --config webpack.server.config.js --progress --colors",
-        "postinstall": "opencollective postinstall",
+        "postinstall": "npm run build:prod && npm run server",
         "build:watch": "concurrently \"ng serve\" \"nodemon ./server.dev.js\"",
         "build:dev": "run-p test:watch start",
         "webpack:server": "webpack --config webpack.server.config.js --progress --colors",
