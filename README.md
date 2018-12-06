@@ -54,17 +54,8 @@ ng add @ng-toolkit/serverless
 ### Dev
 ```
 npm install
-npm run start
+npm run start:dev
 ```
 - Node dev server file : server.dev.js
 - Angular CLI port : localhost:4200
 - Node server port : localhost:8081
-
-### Prod
-```
-npm install
-npm run build:prod
-npm run server
-```
-- Node prod server file : server.ts
-- Prod ports : localhost:8081
