@@ -45,6 +45,12 @@ app.set('views', join(DIST_FOLDER));
 app.get('*.*', express.static(join(DIST_FOLDER)));
 
 // Backend Node routes
+  app.use((req, res, next) => {
+    if (req.header('x-forwarded-proto') !== 'https')
+      res.redirect(`https://${req.header('host')}${req.url}`)
+    else
+      next()
+  });
 app.use(function (err, req, res, next) {
   	if (err.name === 'UnauthorizedError') {
     	res.status(401).send(err.name + ": " + err.message);

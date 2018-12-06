@@ -1,9 +1,0 @@
-<VirtualHost *:80>
-    ServerName yacine-mean-app.herokuapp.com
-    Redirect / https://yacine-mean-app.herokuapp.com/
-</VirtualHost>
-
-<VirtualHost *:8081>
-    ServerName yacine-mean-app.herokuapp.com
-    Redirect / https://yacine-mean-app.herokuapp.com/
-</VirtualHost>
